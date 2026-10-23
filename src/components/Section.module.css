@@ -1,0 +1,15 @@
+.section {
+  min-height: 100vh;
+  /* svh = *small* viewport height: stays constant whether the mobile browser
+     toolbar is shown or hidden. Using dvh here caused sections to resize as
+     the toolbar collapsed mid-scroll, making the page appear to jump/snap. */
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+.inner {
+  width: 100%;
+  padding-top: var(--mantine-spacing-xl);
+  padding-bottom: var(--mantine-spacing-xl);
+}

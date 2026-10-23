@@ -1,0 +1,26 @@
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: 60px;
+}
+
+.greeting {
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-5));
+  font-size: var(--mantine-font-size-md);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.name {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.role {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 400;
+}

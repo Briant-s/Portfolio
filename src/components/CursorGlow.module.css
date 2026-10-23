@@ -1,0 +1,75 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* JS moves this via top/left; static transform keeps it centered on the point. */
+.positioner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+}
+
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  height: 800px;
+  margin-left: -400px;
+  margin-top: -400px;
+  border-radius: 50%;
+  /* Default (light mode): soft blue → periwinkle → aqua sweep. */
+  background: conic-gradient(
+    from 0deg,
+    #7f7fd5,
+    #86a8e7,
+    #91eae4,
+    #86a8e7,
+    #7f7fd5
+  );
+  filter: blur(130px);
+  opacity: 0.3;
+  will-change: transform;
+  animation: spin 10s linear infinite;
+}
+
+/* Dark mode: blue → purple gradient. */
+:global([data-mantine-color-scheme="dark"]) .glow {
+  background: conic-gradient(
+    from 0deg,
+    #1e3cff,
+    #4f46e5,
+    #7c3aed,
+    #a855f7,
+    #6366f1,
+    #2563eb,
+    #1e3cff
+  );
+  opacity: 0.15;
+}
+
+:global([data-mantine-color-scheme="light"]) .glow {
+  opacity: 0.15;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow {
+    animation: none;
+  }
+}

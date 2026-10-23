@@ -1,0 +1,18 @@
+/**
+ * Ghost button: no background. On hover, a gradient bottom-line appears under
+ * the icon + label. Text color is unchanged. Pairs with variant="subtle".
+ */
+.linkButton {
+  background: transparent !important;
+  border-radius: 0;
+}
+
+.linkButton:hover {
+  background: transparent !important;
+}
+
+/* Gradient underline under the whole icon+label row on hover. */
+.linkButton:hover :global(.mantine-Button-inner) {
+  background: var(--accent-gradient) 0 100% / 100% 2px no-repeat;
+  padding-bottom: 3px;
+}

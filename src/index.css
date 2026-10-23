@@ -1,0 +1,60 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Offset anchored sections so they aren't hidden behind the fixed header. */
+section[id] {
+  scroll-margin-top: 70px;
+}
+
+/* ───────────────────────────────────────────────
+   Accent gradients — echo the cursor-glow palette.
+   Dark mode: blue → purple.  Light mode: rainbow.
+   Used by components so mobile (no cursor) still
+   carries the color theme.
+   ─────────────────────────────────────────────── */
+:root,
+[data-mantine-color-scheme="light"] {
+  --accent-gradient: linear-gradient(90deg, #7f7fd5, #86a8e7, #91eae4);
+}
+
+[data-mantine-color-scheme="dark"] {
+  --accent-gradient: linear-gradient(90deg, #2563eb, #4f46e5, #7c3aed, #a855f7);
+}
+
+/* Dimmed-text overrides. Mantine defines --mantine-color-dimmed on
+   :root[data-mantine-color-scheme=...] (specificity 0,2,0), so we must match
+   that specificity here or the override is ignored. */
+:root[data-mantine-color-scheme="dark"] {
+  /* Default dark.2 is too faint — use a brighter, readable gray. */
+  --mantine-color-dimmed: var(--mantine-color-gray-5);
+}
+
+:root[data-mantine-color-scheme="light"] {
+  --mantine-color-dimmed: var(--mantine-color-gray-7);
+}
+
+/* Gradient-filled text. */
+.accentText {
+  background: var(--accent-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Short gradient underline bar, e.g. under section headings. */
+.accentBar::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin-top: 0.4rem;
+  border-radius: 2px;
+  background: var(--accent-gradient);
+}

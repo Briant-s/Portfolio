@@ -1,0 +1,17 @@
+.button {
+  color: inherit;
+  transition: color 120ms ease;
+}
+
+.button:hover {
+  color: var(--mantine-primary-color-filled);
+}
+
+.icon {
+  color: var(--mantine-color-dimmed);
+  flex-shrink: 0;
+}
+
+.button:hover .icon {
+  color: var(--mantine-primary-color-filled);
+}

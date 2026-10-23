@@ -1,0 +1,20 @@
+/* Tighter, cleaner padding for project type/tool badges. */
+.badge {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/**
+ * Type badge: no solid background — gradient-filled text with a subtle border.
+ */
+.typeBadge {
+  padding-left: 8px;
+  padding-right: 8px;
+  background: var(--accent-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  border: 1px solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+}

@@ -1,0 +1,21 @@
+.row {
+  cursor: pointer;
+  padding: var(--mantine-spacing-md);
+  margin-left: calc(var(--mantine-spacing-md) * -1);
+  margin-right: calc(var(--mantine-spacing-md) * -1);
+  border-radius: 0;
+  transition:
+    background-color 140ms ease,
+    backdrop-filter 140ms ease;
+}
+
+.row:hover {
+  /* Soft translucent wash + blur instead of a solid block. */
+  background-color: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(6px);
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--mantine-primary-color-filled);
+  outline-offset: -2px;
+}

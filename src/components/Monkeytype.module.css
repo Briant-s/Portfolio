@@ -1,0 +1,19 @@
+.stats {
+  gap: var(--mantine-spacing-xl);
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.statValue {
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  line-height: 1.1;
+  background: var(--accent-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
