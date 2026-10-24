@@ -14,7 +14,14 @@ export function Projects() {
   const [active, setActive] = useState<Project | null>(null);
   const [opened, setOpened] = useState(false);
 
-  const featured = content.projects.slice(0, HOME_COUNT);
+  // Featured picks come from content.featuredSlugs (in that order). Fall back
+  // to the first HOME_COUNT projects if no valid slugs are configured.
+  const bySlug = new Map(content.projects.map((p) => [p.slug, p]));
+  const picked = (content.featuredSlugs ?? [])
+    .map((slug) => bySlug.get(slug))
+    .filter((p): p is Project => Boolean(p));
+  const featured =
+    picked.length > 0 ? picked : content.projects.slice(0, HOME_COUNT);
 
   const openProject = (project: Project) => {
     setActive(project);

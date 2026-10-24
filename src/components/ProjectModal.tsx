@@ -13,6 +13,7 @@ import {
 import { IconArrowRight, IconBrandGithub, IconExternalLink } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import type { Project } from '../content';
+import { assetUrl } from '../lib/assetUrl';
 import badge from './projectBadges.module.css';
 
 interface Props {
@@ -44,7 +45,7 @@ export function ProjectModal({ project, opened, onClose }: Props) {
         {project.images && project.images.length > 0 ? (
           <SimpleGrid cols={{ base: 1, sm: project.images.length > 1 ? 2 : 1 }} spacing="xs">
             {project.images.map((src) => (
-              <Image key={src} src={src} alt={project.title} radius={0} />
+              <Image key={src} src={assetUrl(src)} alt={project.title} radius={0} />
             ))}
           </SimpleGrid>
         ) : null}

@@ -173,6 +173,12 @@ export interface Content {
   monkeytype?: MonkeytypeStats;
   socials: SocialLink[];
   projects: Project[];
+  /**
+   * Slugs of the projects to feature on the home page, in display order.
+   * Lets you pick which (and the order) without reordering `projects`.
+   * If empty/omitted, the first few projects are used as a fallback.
+   */
+  featuredSlugs?: string[];
   skills: SkillGroup[];
   /** Education / work experience timeline entries (most recent first). */
   experience: ExperienceEntry[];
@@ -184,7 +190,7 @@ export const content: Content = {
   school: "Binus University",
   schoolUrl: "https://binus.ac.id/", // ← add the Binus University link here
   tagline:
-    "I love doing data analytics and turning them into practical visualizations",
+    "I love doing data analytics and turning them into practical solutions",
   about: [
     "Hi! I’m a developer who enjoys working across the stack — from pixel-perfect interfaces to resilient backends. I care about writing maintainable code and delivering great user experiences.",
     "When I’m not coding, you can find me exploring new technologies, contributing to open source, or learning something completely unrelated.",
@@ -196,7 +202,7 @@ export const content: Content = {
       tileSize: "tall",
       heading: "Who I Am",
       body: [
-        "Hi! I’m Briant — a CS student who loves turning messy data into clear, practical visualizations and tools people actually use.",
+        "Hey there! I'm Briant, currently a CS student who enjoys turning messy data into clear, practical visualizations and tools that people can actually use.",
         "I enjoy working across the stack, but I’m happiest where analytics meets a clean interface.",
       ],
       links: [{ label: "Get in touch", href: "#contact" }],
@@ -206,8 +212,8 @@ export const content: Content = {
       icon: "school",
       heading: "Education",
       body: [
-        "Computer Science student at Binus University, focusing on data analytics and software engineering.",
-        "Coursework highlights: algorithms, databases, machine learning, and statistics.",
+        "Computer Science student at Binus University, focusing on database technologies.",
+        "Coursework highlights: Data Mining, Database Technology, Big Data Processing, Data Engineering, Data Analytics, Data Structures, Algorithm and Programming.",
       ],
       links: [{ label: "Binus University", href: "https://binus.ac.id/" }],
     },
@@ -216,8 +222,8 @@ export const content: Content = {
       icon: "heart",
       heading: "What I Enjoy",
       body: [
-        "Data analytics, visualization, and building small tools that remove friction.",
-        "Outside of code: exploring new tech, and learning things completely unrelated to CS.",
+        "I enjoy combining Data Science and Analytics stuff with Software Engineering by creating apps and dashboards that combine the two",
+        "Outside of code: I enjoy video games as much as the next person, an avid motorsport watcher especially Formula 1, and I also love listening to music.",
       ],
     },
     {
@@ -250,8 +256,8 @@ export const content: Content = {
     profileUrl: "https://monkeytype.com/profile/Br_1S", // ← your profile link
     keyboard: [
       { label: "Keyboard", value: "Lucky65 V2" },
-      { label: "Switches", value: "Gateron Brown" },
-      { label: "Keycaps", value: "PBT" },
+      { label: "Switches", value: "WS Morandi" },
+      { label: "Keycaps", value: "Black & White PBT" },
       { label: "Layout", value: "QWERTY" },
     ],
   },
@@ -272,66 +278,176 @@ export const content: Content = {
       icon: "instagram",
     },
   ],
+  // ── Home page picks ─────────────────────────────────────────
+  // Choose which 3 projects appear on the home page (and their order)
+  // by slug — no need to reorder the `projects` array below.
+  featuredSlugs: [
+    "ai-file-renamer",
+    "campaign-response-pipeline",
+    "hr-attrition-pipeline",
+  ],
   projects: [
     {
-      slug: "project-one",
-      title: "Project One",
+      slug: "ai-file-renamer",
+      title: "TiFo — AI File Renamer & Organization Tool",
       type: "Software Engineering",
       description:
-        "A short description of what this project does, the problem it solves, and your role in building it.",
-      tools: ["React", "TypeScript", "Node.js"],
-      images: [], // e.g. ["/projects/project-one-1.png"]
-      link: "https://example.com",
-      source: "https://github.com/Briant-s/project-one",
-      links: [{ label: "Case study", href: "https://example.com/case-study" }],
+        "A fully offline CLI tool that reads file contents and uses a local LLM to generate short, descriptive filenames and auto-organize files into folders.",
+      tools: ["Python", "Ollama", "Sentence-Transformers", "PyTorch", "CLI"],
+      images: ["/tifo.gif"],
+      link: "https://giorrrr.github.io/Landing-Page-Data-Mining/",
+      source: "https://github.com/Briant-s/file_renamer_organizer",
       detail: {
         overview: [
-          "A fuller explanation of Project One: the motivation, the problem space, and what makes the approach interesting.",
-          "Describe your specific contributions and the outcome or impact.",
+          "TiFO is a fully offline command-line tool that reads file contents and uses a local LLM to generate short, descriptive filenames — with structured JSON output enforced via Pydantic schemas.",
         ],
         sections: [
           {
-            heading: "The Challenge",
+            heading: "Problem Faced",
             body: [
-              "Explain the core problem you set out to solve and any constraints.",
+              "In a world full of deadlines, organization matters. Many people don't have the time or effort to clean up their working spaces. Files and folders scattered everywhere with no sense of purpose. Our team wanted to provide a tool that is quick and fits in a professional setting for a wide range of users.",
             ],
           },
           {
-            heading: "How It Works",
+            heading: "My Role",
             body: [
-              "Walk through the architecture, key decisions, and trade-offs.",
+              "Lead developer of TiFo. Worked on project ideation, iterative project development, and goal alignment with upstream shareholders.",
+            ],
+          },
+          {
+            heading: "Implementation",
+            body: [
+              "TiFo is built using Python programming language. TiFo runs on the terminal with guided user interfaces for ease of use. Local LLM integration using the llama 3.2:3b model which behaves as the main backbone of the renaming feature. Uses a mix of external python libraries to handle multiple file extensions and a semantic folder classifer using all-MiniLM-L6-v2 embeddings for folder classifications.",
             ],
           },
         ],
       },
     },
     {
-      slug: "project-two",
-      title: "Project Two",
-      type: "Data Mining",
+      slug: "umkm-loan-simulation",
+      title: "Poestakas",
+      type: "Software Engineering",
       description:
-        "Another standout project. Highlight impact, scale, or interesting technical challenges you overcame.",
-      tools: ["Python", "FastAPI", "Supabase"],
+        "A full-stack loan simulation platform for Indonesian SMEs (UMKM), modeling KUR loan schemes with risk flagging and an AI business-proposal generator.",
+      tools: ["React", "FastAPI", "Supabase", "Gemini API"],
       images: [],
-      link: "https://example.com",
-      source: "https://github.com/Briant-s/project-two",
+      link: "", // live/demo URL (deployed on Vercel + Railway) — add if public
+      source: "https://github.com/Briant-s/Poestakas", // ← your GitHub repo URL, e.g. "https://github.com/Briant-s/poestakas"
+      links: [
+        {
+          label: "Documentation",
+          href: "https://app.notion.com/p/SE-Group-3-305cf547802d80319fd5c7e72abb3b15",
+        },
+      ],
       detail: {
         overview: [
-          "A fuller explanation of Project Two — the dataset, the analysis, and the insights produced.",
+          "PoestaKas is a financial readiness platform that helps Indonesian UMKM assess their creditworthiness, simulate KUR loan scenarios, and generate AI-powered business proposals — empowering small businesses to make informed decisions before applying for credit.",
+        ],
+        sections: [
+          {
+            heading: "My Role",
+            body: [
+              "Led and managed a team consisting of 4 other developers. Prioritized in product & feature ideation, full-stack development consisting of UI/UX, user authentication using Supabase, API development, and project documentation. Deployed the project using Vercel and Railway for faster prototyping.",
+            ],
+          },
+          {
+            heading: "Simulation Engine",
+            body: [
+              "Built a simulation engine modeling KUR loan schemes, calculating installment composition and loan growth, with automated DTI-based risk flagging and recommendations.",
+            ],
+          },
         ],
       },
     },
     {
-      slug: "project-three",
-      title: "Project Three",
+      slug: "hr-attrition-pipeline",
+      title: "HR Employee Attrition Pipeline",
+      type: "Data Mining",
+      description:
+        "An end-to-end ETL pipeline processing 1,470 employee records, powering a 4-page Power BI dashboard suite and surfacing key attrition drivers.",
+      tools: ["Pentaho", "MySQL", "Power BI"],
+      images: ["/de.png", "/8.png", "/9.png", "/10.png"],
+      source: "https://github.com/Briant-s/DE_HRAttrition",
+      detail: {
+        overview: [
+          "Built an end-to-end ETL pipeline processing 1,470 employee records. Team of 3.",
+        ],
+        sections: [
+          {
+            heading: "Dashboards & Insights",
+            body: [
+              "Powered a 4-page Power BI dashboard suite: retention, satisfaction, executive cost analysis, and demographics.",
+              "Identified key attrition drivers including short-tenure employees and the HR department, informing retention-strategy recommendations.",
+            ],
+          },
+        ],
+      },
+    },
+    {
+      slug: "xai-phishing-detection",
+      title: "XAI for Phishing Email Detection",
+      type: "Research",
+      description:
+        "An SVM-based ML pipeline with NLP feature extraction to classify phishing emails, for a research study on explainable AI's effect on human phishing-detection accuracy.",
+      tools: ["Python", "SVM", "NLP", "Scikit-learn"],
+      images: ["/xai_results.png", "/distribution_dashboard.png"],
+      // link to the paper once available
+      source: "https://github.com/Briant-s/xai_phishing_detection_study",
+      detail: {
+        overview: [
+          "Built an SVM-based machine learning pipeline with NLP feature extraction to classify phishing emails, supporting a research study on explainable AI (XAI) and its effect on human phishing-detection accuracy.",
+          "Co-authored paper currently under review at ICORIS 2026.",
+        ],
+      },
+    },
+    {
+      slug: "campaign-response-pipeline",
+      title: "Customer Campaign Response Pipeline",
+      type: "Data Mining",
+      description:
+        "A complete CRISP-DM analytics pipeline (EDA, feature engineering, modeling, evaluation) deployed as an interactive Streamlit dashboard.",
+      tools: ["Python", "Scikit-learn", "Streamlit"],
+      images: ["/campaign1.png", "/campaign2.png"],
+      link: "",
+      source: "https://github.com/Briant-s/DA_CustomerResponse",
+      detail: {
+        overview: [
+          "Built a complete CRISP-DM analytics pipeline — EDA, feature engineering, modeling, and evaluation — deployed via an interactive Streamlit dashboard. Team of 3.",
+        ],
+        sections: [
+          {
+            heading: "Modeling & Findings",
+            body: [
+              "Benchmarked Logistic Regression vs. Random Forest (ROC-AUC 0.83 vs. 0.84).",
+              "Found that SMOTE degraded performance and increased false positives on the low-sample dataset.",
+            ],
+          },
+        ],
+      },
+    },
+    {
+      slug: "project-tracking-canvas",
+      title: "Project Tracking Canvas Tool",
       type: "Software Engineering",
       description:
-        "A third project to round out your showcase. Keep descriptions concise and outcome-focused.",
-      tools: ["Python", "FastAPI", "Docker"],
-      images: [],
-      source: "https://github.com/Briant-s/project-three",
+        "A canvas-based project tracking tool with draggable, linkable nodes and embedded task checklists, built with React and Konva.js.",
+      tools: ["React", "Konva.js", "Tailwind CSS", "Supabase"],
+      images: ["/poestakas.png", "/poestakas2.png"],
+      link: "", // deployed on Vercel — add URL
+      source: "https://github.com/x3nozite/rect-up",
       detail: {
-        overview: ["A fuller explanation of Project Three."],
+        overview: [
+          "Served as primary frontend developer, designing the UI and node system using Konva.js for canvas rendering and Tailwind for styling. Team of 4.",
+        ],
+        sections: [
+          {
+            heading: "Canvas & Nodes",
+            body: [
+              "Contributed to canvas and node-connection logic enabling draggable, linkable nodes with embedded task checklists.",
+              "Deployed on Vercel.",
+            ],
+          },
+        ],
       },
     },
   ],
@@ -370,7 +486,7 @@ export const content: Content = {
   ],
   experience: [
     {
-      title: "Computer Science",
+      title: "B.S. Computer Science",
       organization: "Binus University",
       start: "2024 August",
       end: "Present",

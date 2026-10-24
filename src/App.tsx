@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { ReactLenis } from 'lenis/react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { CursorGlow } from './components/CursorGlow';
@@ -9,7 +10,8 @@ import { ProjectDetailPage } from './pages/ProjectDetailPage';
 
 export default function App() {
   return (
-    <>
+    // `root` makes Lenis drive the window/<html> scroll for the whole app.
+    <ReactLenis root options={{ lerp: 0.1, smoothWheel: true }}>
       <CursorGlow />
       <ScrollToTop />
       <Header />
@@ -21,6 +23,6 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
-    </>
+    </ReactLenis>
   );
 }

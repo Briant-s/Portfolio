@@ -17,6 +17,7 @@ import {
 } from '@tabler/icons-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { content } from '../content';
+import { assetUrl } from '../lib/assetUrl';
 import badge from '../components/projectBadges.module.css';
 import linkBtn from '../components/linkButton.module.css';
 
@@ -109,7 +110,18 @@ export function ProjectDetailPage() {
         {project.images && project.images.length > 0 ? (
           <SimpleGrid cols={{ base: 1, sm: project.images.length > 1 ? 2 : 1 }} spacing="md">
             {project.images.map((src) => (
-              <Image key={src} src={src} alt={project.title} radius={0} />
+              <Image
+                key={src}
+                src={assetUrl(src)}
+                alt={project.title}
+                radius={0}
+                fit="contain"
+                style={{
+                  border:
+                    '1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))',
+                  background: 'var(--mantine-color-body)',
+                }}
+              />
             ))}
           </SimpleGrid>
         ) : null}

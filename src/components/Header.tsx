@@ -14,6 +14,7 @@ import {
 import { useDisclosure, useWindowScroll } from '@mantine/hooks';
 import { IconFileText, IconMoon, IconSun } from '@tabler/icons-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLenis } from 'lenis/react';
 import { content } from '../content';
 import { NameSwap } from './NameSwap';
 import classes from './Header.module.css';
@@ -48,18 +49,32 @@ export function Header() {
   const scrolled = scroll.y > 20;
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const lenis = useLenis();
   const onHome = pathname === '/';
 
-  // Navigate to a section. On the home page, jump via hash; elsewhere, go to
+  // Navigate to a section. On the home page, scroll via Lenis; elsewhere, go to
   // the home route with the hash so the section scrolls into view after load.
   const goToSection = (hash: string) => {
     close();
     if (onHome) {
-      const el = document.querySelector(hash);
-      el?.scrollIntoView({ behavior: 'smooth' });
-      history.replaceState(null, '', hash);
+      const el = document.querySelector<HTMLElement>(hash);
+      if (el) {
+        if (lenis) lenis.scrollTo(el, { offset: -60 });
+        else el.scrollIntoView({ behavior: 'smooth' });
+        history.replaceState(null, '', hash);
+      }
     } else {
       navigate(`/${hash}`);
+    }
+  };
+
+  const goHome = () => {
+    close();
+    if (onHome) {
+      if (lenis) lenis.scrollTo(0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
     }
   };
 
@@ -90,14 +105,7 @@ export function Header() {
               <NameSwap
                 primary={content.name}
                 secondary={content.githubHandle}
-                onClick={() => {
-                  close();
-                  if (onHome) {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  } else {
-                    navigate('/');
-                  }
-                }}
+                onClick={goHome}
               />
             ) : (
               <Text
@@ -105,12 +113,7 @@ export function Header() {
                 href="/"
                 onClick={(e) => {
                   e.preventDefault();
-                  close();
-                  if (onHome) {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  } else {
-                    navigate('/');
-                  }
+                  goHome();
                 }}
               >
                 {content.name}
